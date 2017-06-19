@@ -16,6 +16,11 @@ class PagesController extends Controller
         $data = [];
         $data['name'] = $name;
         $data['last'] = 'yao';
+        $people = [
+            'jack',
+            'john',
+            'rose'
+        ];
 //        return view('pages')->with([
 //                'name'=> $name,
 //                'last'=> 'yao'
@@ -23,6 +28,10 @@ class PagesController extends Controller
 //        );
         $last =  'yao';
 //        return view('pages',$data);
-        return view('pages',compact('name','last'));
+        return view('pages',compact('name','people','last'));
+    }
+    public function contact()
+    {
+        return view('pages.contact');
     }
 }

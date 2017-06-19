@@ -16,3 +16,4 @@ Route::get('/', function () {
     return "hello world";
 });
 Route::get('pages',"PagesController@index");
+Route::get('contact',"PagesController@contact");

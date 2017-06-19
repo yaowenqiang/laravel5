@@ -1,15 +1,18 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pages</title>
-</head>
-<body>
+@extends('app')
+@section('content')
+    @if($name == 'john')
+        HI,john
+    @else
+       HI,guest.
+    @endif
+    @if(count($people))
+        <ul>
+            @foreach($people as $person)
+                <li>{{ $person }}</li>
+            @endforeach
+        </ul>
+    @endif
     <h1>Pages <?= $name;?></h1>
     <h1>Pages {{ $name }} {{ $last }}</h1>
     <h1>Pages {!! $name !!}</h1>
-</body>
-</html>
+@stop
