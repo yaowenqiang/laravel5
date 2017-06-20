@@ -13,6 +13,16 @@ class ArticleController extends Controller
     {
         $articles = Article::all();
 //        return "many articles";
-        return $articles;
+//        return $articles;
+        return view('articles/index',compact('articles'));
+    }
+
+    public function show($id)
+    {
+        $article = Article::findOrFail($id);
+//        if(!$article) {
+//            abort(404);
+//        }
+        return view('articles.show',compact('article'));
     }
 }
