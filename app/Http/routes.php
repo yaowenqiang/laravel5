@@ -18,4 +18,6 @@ Route::get('/', function () {
 Route::get('pages',"PagesController@index");
 Route::get('contact',"PagesController@contact");
 Route::get('articles',"ArticleController@index");
+Route::get('articles/create',"ArticleController@create");
 Route::get('articles/{id}',"ArticleController@show");
+Route::post('articles/',"ArticleController@store");
