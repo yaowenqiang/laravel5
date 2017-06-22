@@ -15,7 +15,10 @@ class ArticleController extends Controller
     {
 //        $articles = Article::all();
 //        $articles = Article::orderBy('published_at','desc')->get();
-        $articles = Article::latest('published_at')->get();
+//        $articles = Article::latest('published_at')->get();
+//        $articles = Article::latest('published_at')->where('published_at','<=',Carbon::now())->get();
+//        $articles = Article::latest('published_at')->published()->get();
+        $articles = Article::latest('published_at')->unpublished()->get();
 //        return "many articles";
 //        return $articles;
         return view('articles/index',compact('articles'));
@@ -27,6 +30,12 @@ class ArticleController extends Controller
 //        if(!$article) {
 //            abort(404);
 //        }
+//        dd($article->created_at);
+//        dd($article->created_at->year);
+//        dd($article->created_at->month);
+//        dd($article->created_at->addDays(8));
+//        dd($article->created_at->addDays(8)->format('Y-m'));
+        dd($article->published_at);
         return view('articles.show',compact('article'));
     }
 
@@ -35,10 +44,10 @@ class ArticleController extends Controller
     }
 
     public function store() {
-        $input = Request::all();
-        $input['published_at'] = Carbon::now();
+//        $input = Request::all();
+//        $input['published_at'] = Carbon::now();
 //        $input = Request::get('tittle');
-        Article::create($input);
+        Article::create(Request::all());
 //        return $input;
 //        return view('articles.create');
         return redirect('articles');
