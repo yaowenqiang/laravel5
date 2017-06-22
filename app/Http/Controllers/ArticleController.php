@@ -1,13 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
-//use Illuminate\Http\Request;
-use Request;
+use Illuminate\Http\Request;
 use App\Article;
 use Carbon\Carbon;
 
-use App\Http\Requests;
+//use App\Http\Requests;
 
 class ArticleController extends Controller
 {
@@ -43,11 +41,14 @@ class ArticleController extends Controller
         return view('articles.create');
     }
 
-    public function store() {
+//    public function store(Requests\CreateArticleRequest $request) {
+    public function store(Request  $request) {
 //        $input = Request::all();
 //        $input['published_at'] = Carbon::now();
 //        $input = Request::get('tittle');
-        Article::create(Request::all());
+//        Article::create(Request::all());
+        $this->validate($request,['title'=>'required','body'=>'required']);
+        Article::create($request->all());
 //        return $input;
 //        return view('articles.create');
         return redirect('articles');

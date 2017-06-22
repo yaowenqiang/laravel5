@@ -19,4 +19,12 @@
            {!! Form::submit('Add Article',['class'=>'btn btn-primary form-control']) !!}
        </div>
         {!! Form::close() !!}
+       @if($errors->any())
+            <ui class="alert alert-danger">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ui>
+       @endif
+{{--        {{ var_dump($errors) }}--}}
     @stop
