@@ -10,8 +10,15 @@ use Carbon\Carbon;
 
 class ArticleController extends Controller
 {
+    public function __construct()
+    {
+//        $this->middleware('auth',['only'=>'create']);
+        $this->middleware('auth',['except'=>'create']);
+    }
+
     public function index()
     {
+//        return \Auth::user();
 //        $articles = Article::all();
 //        $articles = Article::orderBy('published_at','desc')->get();
 //        $articles = Article::latest('published_at')->get();
@@ -39,6 +46,9 @@ class ArticleController extends Controller
     }
 
     public function create() {
+        if(Auth::guest()) {
+           redirect('articles');
+        }
         return view('articles.create');
     }
 
@@ -48,8 +58,9 @@ class ArticleController extends Controller
 //        $input['published_at'] = Carbon::now();
 //        $input = Request::get('tittle');
 //        Article::create(Request::all());
-        $this->validate($request,['title'=>'required','body'=>'required']);
-        Article::create($request->all());
+        \Auth::user()->articles()->save(new Article($request->all()));
+//        $this->validate($request,['title'=>'required','body'=>'required']);
+//        Article::create($request->all());
 //        return $input;
 //        return view('articles.create');
         return redirect('articles');

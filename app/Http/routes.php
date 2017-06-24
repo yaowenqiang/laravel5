@@ -15,7 +15,11 @@ Route::get('/', function () {
 //    return view('welcome');
     return "hello world";
 });
-Route::get('pages',"PagesController@index");
+//Route::get('pages',"PagesController@index");
+//Route::get('pages',['middleware'=>'auth','use'=>'PageController@index']);
+Route::get('pages',['middleware'=>'auth',function(){
+    return "some test";
+}]);
 Route::get('contact',"PagesController@contact");
 //Route::get('articles',"ArticleController@index");
 //Route::get('articles/create',"ArticleController@create");
@@ -27,4 +31,10 @@ Route::resource('articles','ArticleController');
 //Route::controller([
 //    'auth'=>'Auth\AuthController',
 //    'password'=>'Auth\PasswordController'
-//])
+//]);
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
+Route::get('foo',['middleware'=>'manager',function(){
+    return "this page may only viewed by manager";;
+}]);
