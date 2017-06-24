@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\ArticleRequest;
 use Illuminate\Http\Request;
 use App\Article;
 use Carbon\Carbon;
@@ -59,7 +60,7 @@ class ArticleController extends Controller
         return view('articles.edit',compact('article'));
     }
 
-    public function update($id,Request $request)
+    public function update($id,ArticleRequest $request)
     {
         $article = Article::findOrFail($id);
         $article->update($request->all());
