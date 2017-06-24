@@ -23,3 +23,8 @@ Route::get('contact',"PagesController@contact");
 //Route::post('articles/',"ArticleController@store");
 //Route::get('articles/{id}/edit',"ArticleController@edit");
 Route::resource('articles','ArticleController');
+
+//Route::controller([
+//    'auth'=>'Auth\AuthController',
+//    'password'=>'Auth\PasswordController'
+//])
