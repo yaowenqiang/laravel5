@@ -16,7 +16,7 @@ class ArticleController extends Controller
 //        $articles = Article::latest('published_at')->get();
 //        $articles = Article::latest('published_at')->where('published_at','<=',Carbon::now())->get();
 //        $articles = Article::latest('published_at')->published()->get();
-        $articles = Article::latest('published_at')->unpublished()->get();
+        $articles = Article::latest('published_at')->published()->get();
 //        return "many articles";
 //        return $articles;
         return view('articles/index',compact('articles'));
@@ -51,6 +51,18 @@ class ArticleController extends Controller
         Article::create($request->all());
 //        return $input;
 //        return view('articles.create');
+        return redirect('articles');
+    }
+    public function edit($id)
+     {
+         $article = Article::findOrFail($id);
+        return view('articles.edit',compact('article'));
+    }
+
+    public function update($id,Request $request)
+    {
+        $article = Article::findOrFail($id);
+        $article->update($request->all());
         return redirect('articles');
     }
 }
