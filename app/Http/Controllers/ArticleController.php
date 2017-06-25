@@ -13,7 +13,7 @@ class ArticleController extends Controller
     public function __construct()
     {
 //        $this->middleware('auth',['only'=>'create']);
-        $this->middleware('auth',['except'=>'create']);
+//        $this->middleware('auth',['except'=>'create']);
     }
 
     public function index()
@@ -45,9 +45,9 @@ class ArticleController extends Controller
     }
 
     public function create() {
-        if(Auth::guest()) {
-           redirect('articles');
-        }
+//        if(\Auth::guest()) {
+//           redirect('articles');
+//        }
         return view('articles.create');
     }
 
@@ -56,13 +56,25 @@ class ArticleController extends Controller
 //        $input = Request::all();
 //        $input['published_at'] = Carbon::now();
 //        $input = Request::get('tittle');
-//        Article::create(Request::all());
-        \Auth::user()->articles()->save(new Article($request->all()));
+        Article::create($request->all());
+//        \Auth::user()->articles()->save(new Article($request->all()));
 //        $this->validate($request,['title'=>'required','body'=>'required']);
 //        Article::create($request->all());
 //        return $input;
 //        return view('articles.create');
+//        \Session::flush('flash_message','YOur article has been created');
+//        \Session::flash('flash_message','YOur article has been created');
+//        \Session::flash('flash_message_important',true);
+//        return redirect('articles');
+//        \Flash::info('')
+
+//        flash('your article has been created');
+//        flash()->success'your article has been created');
+        flash()->overlay('your article has been created','Good Job');
         return redirect('articles');
+//        return redirect('articles')->with([
+//            'flash_message'=>'Your article has been created'
+//        ]);
     }
     public function edit(Article $article)
      {
