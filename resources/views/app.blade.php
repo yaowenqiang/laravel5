@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link href="https://cdn.bootcss.com/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.bootcss.com/jquery/3.2.0/jquery.min.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -16,7 +15,7 @@
         @include('flash::message')
         @yield('content')
     </div>
-@yield('footer')
+    <script src="https://cdn.bootcss.com/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script>
         $('#flash-overlay-modal').modal();
