@@ -48,15 +48,18 @@ class ArticleController extends Controller
 //        if(\Auth::guest()) {
 //           redirect('articles');
 //        }
-        return view('articles.create');
+//        $tags = \App\Tag::lists('name','name');
+        $tags = \App\Tag::lists('name','id');
+        return view('articles.create',compact('tags'));
     }
 
 //    public function store(Requests\CreateArticleRequest $request) {
     public function store(Request  $request) {
+//        dd($request->all());
 //        $input = Request::all();
 //        $input['published_at'] = Carbon::now();
 //        $input = Request::get('tittle');
-        Article::create($request->all());
+        $this->createArticle($request);
 //        \Auth::user()->articles()->save(new Article($request->all()));
 //        $this->validate($request,['title'=>'required','body'=>'required']);
 //        Article::create($request->all());
@@ -71,6 +74,8 @@ class ArticleController extends Controller
 //        flash('your article has been created');
 //        flash()->success'your article has been created');
         flash()->overlay('your article has been created','Good Job');
+//        $tags = \App\Tag::lists('name','id');
+//        return view('articles.create',compact('tags'));
         return redirect('articles');
 //        return redirect('articles')->with([
 //            'flash_message'=>'Your article has been created'
@@ -78,12 +83,30 @@ class ArticleController extends Controller
     }
     public function edit(Article $article)
      {
-        return view('articles.edit',compact('article'));
+         $tags = \App\Tag::lists('name','id');
+         $tagIdLists = $article->tags()->lists('id')->toArray();
+        return view('articles.edit',compact('article','tags','tagIdLists'));
     }
 
     public function update(Article $article,ArticleRequest $request)
     {
         $article->update($request->all());
-        return redirect('articles');
+        $tags = \App\Tag::lists('name','id');
+        $this->syncTags($article,$request->input('tag_list'));
+        $tagIdLists = $article->tags()->lists('id')->toArray();
+        return view('articles.edit',compact('article','tags','tagIdLists'));
+//        return redirect('articles');
+    }
+
+    public function  syncTags(Article $article,array $tags)
+    {
+        $article->tags()->sync($tags);
+    }
+
+    public function  createArticle(Request $request)
+    {
+        $article = Article::create($request->all());
+        $this->syncTags($article,$request->input('tag_list'));
+        return $article;
     }
 }
