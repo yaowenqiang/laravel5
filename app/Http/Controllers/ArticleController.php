@@ -30,9 +30,9 @@ class ArticleController extends Controller
         return view('articles/index',compact('articles'));
     }
 
-    public function show($id)
+    public function show(Article $article)
     {
-        $article = Article::findOrFail($id);
+//        $article = Article::findOrFail($id);
 //        if(!$article) {
 //            abort(404);
 //        }
@@ -41,7 +41,6 @@ class ArticleController extends Controller
 //        dd($article->created_at->month);
 //        dd($article->created_at->addDays(8));
 //        dd($article->created_at->addDays(8)->format('Y-m'));
-        dd($article->published_at);
         return view('articles.show',compact('article'));
     }
 
@@ -65,15 +64,13 @@ class ArticleController extends Controller
 //        return view('articles.create');
         return redirect('articles');
     }
-    public function edit($id)
+    public function edit(Article $article)
      {
-         $article = Article::findOrFail($id);
         return view('articles.edit',compact('article'));
     }
 
-    public function update($id,ArticleRequest $request)
+    public function update(Article $article,ArticleRequest $request)
     {
-        $article = Article::findOrFail($id);
         $article->update($request->all());
         return redirect('articles');
     }
